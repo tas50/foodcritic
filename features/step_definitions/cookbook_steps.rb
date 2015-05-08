@@ -2312,3 +2312,19 @@ end
 Then /^the metadata using recommends warning 053 should be (shown|not shown) against the metadata file$/ do |show_warning|
   expect_warning('FC053', :file => "metadata.rb", :line => 2, :expect_warning => show_warning == 'shown')
 end
+
+Given(/^a cookbook with metadata that (includes|does not include) a self dependency$/) do |includes|
+  write_metadata %Q{
+    name 'bar'
+    depends 'baz'
+    #{"depends 'bar'" if includes == 'includes'}
+  }
+end
+
+Then(/^the metadata with self dependency warning 055 should be (shown|not shown) against the metadata file$/) do |show_warning|
+  if show_warning == 'shown'
+    expect_warning('FC055', :file => "metadata.rb", :line => 3, :expect_warning => true)
+  else
+    expect_warning('FC055', :file => "metadata.rb", :expect_warning => false)
+  end
+end

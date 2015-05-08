@@ -779,3 +779,12 @@ rule 'FC054', 'Name should match cookbook dir name in metadata' do
     end
   end
 end
+
+rule 'FC055', 'Cookbook incorrectly depends on itself' do
+  tags %w(metadata correctness)
+  metadata do |ast, filename|
+    name = cookbook_name(filename)
+    ast.xpath(%Q(//command[ident/@value='depends']/
+              descendant::tstring_content[@value='#{name}']))
+  end
+end

@@ -65,6 +65,7 @@ module FoodCritic
       'FC052' => 'Metadata uses the unimplemented "suggests" keyword',
       'FC053' => 'Metadata uses the unimplemented "recommends" keyword',
       'FC054' => 'Name should match cookbook dir name in metadata',
+      'FC055' => 'Cookbook incorrectly depends on itself',
       'FCTEST001' => 'Test Rule'
     }
 
